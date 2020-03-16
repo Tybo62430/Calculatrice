@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+using Calculatrice.DTO;
+
 namespace CalculatriceAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -48,9 +50,29 @@ namespace CalculatriceAPI.Controllers
         }
 
         [HttpPost]
-        public string Post()
+        public string Post([FromBody] Data content)
         {
-            return "Post it's OK";
+            string result = "";
+
+            switch (content.operation)
+            {
+                case "AND":
+                    result = (content.a + content.b).ToString();
+                    break;
+                case "SUB":
+                    result = (content.a - content.b).ToString();
+                    break;
+                case "DIV":
+                    result = (content.a / content.b).ToString();
+                    break;
+                case "MUL":
+                    result = (content.a * content.b).ToString();
+                    break;
+                default:
+                    result = "non definie";
+                    break;
+            }            
+            return result;
         }
     }
 }
