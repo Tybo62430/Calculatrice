@@ -63,7 +63,29 @@ namespace CalculatriceAPI.Controllers
             return data;
         }
 
+        [HttpGet]
+        [Route("nom/{nom}")]
+        public List<Operation> findByNom(string nom)
+        {
+            return operations.Where(operation => operation.Nom == nom).ToList();
+        }
 
-
+        [HttpGet]
+        [Route("valeur/{valeur}")]
+        public List<Operation> findByValeur(string valeur)
+        {
+            List<Operation> result = new List<Operation>();
+            foreach (Operation operation in operations)
+            {
+                if (operation.Valeur == valeur)
+                {
+                    result.Add(operation);
+                }
+            }
+            return result;
+        }
     }
 }
+
+
+
