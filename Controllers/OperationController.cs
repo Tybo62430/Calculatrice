@@ -12,7 +12,7 @@ namespace Calculatrice.Controllers
     [ApiController]
     public class OperationController : ControllerBase
     {
-        private List<Operation> operations = new List<Operation>();
+        private static List<Operation> operations = new List<Operation>();
 
         [HttpGet]
         public string Get()
@@ -23,8 +23,9 @@ namespace Calculatrice.Controllers
         [HttpGet]
         [Route("save")]
         public Operation Save([FromBody]Operation data)
-        {            
-            this.operations.Add(data);
+        {
+            data.Id = operations.Count;
+            operations.Add(data);
             return data;
         }
 
@@ -32,21 +33,30 @@ namespace Calculatrice.Controllers
         [Route("findall")]
         public List<Operation> FindAll()
         {
-            return this.operations;            
+            return operations;            
         }
 
         [HttpGet]
-        [Route("findid")]
+        [Route("findid/{id}")]
         public Operation FindId(int id)
         {
-            return this.operations[id];
+            return operations[id];
         }
 
         [HttpDelete]
-        [Route("delete")]
+        [Route("delete/{id}")]
         public void Delete(int id)
         {
-            this.operations.RemoveAt(id);
+            operations.RemoveAt(id);
+        }
+
+        [HttpPut]
+        [Route("update/{id}")]
+        public Operation update(int id,[FromBody] Operation data)
+        {
+             data.Id = id;
+             operations[id] = data;
+             return data;            
         }
 
 
