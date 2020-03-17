@@ -70,8 +70,8 @@ namespace Calculatrice.Controllers
             return utilisateurs.Where(utilisateur => utilisateur.Metier == metier).ToList();
         }
 
-        [Route("between/{min}/{max}")]
-        public List<Utilisateur> between(int min, int max)
+        [Route("age")]
+        public List<Utilisateur> between(int min, int max = 1000)
         {
             return utilisateurs.Where(utilisateur => utilisateur.Age >= min && utilisateur.Age <= max).ToList();
         }
