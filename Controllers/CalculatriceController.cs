@@ -14,7 +14,6 @@ namespace CalculatriceAPI.Controllers
     public class CalculatriceController : ControllerBase
     {
         [HttpGet]
-
         public string Get()
         {
             return "ca marche?";
@@ -71,8 +70,36 @@ namespace CalculatriceAPI.Controllers
                 default:
                     result = "non definie";
                     break;
-            }            
+            }
             return result;
         }
+
+        [HttpGet]
+        [Route("params")]
+        public string Params(int a, int b, string o)
+        {
+            string result = "";
+
+            switch (o)
+            {
+                case "AND":
+                    result = (a + b).ToString();
+                    break;
+                case "SUB":
+                    result = (a - b).ToString();
+                    break;
+                case "DIV":
+                    result = (a / b).ToString();
+                    break;
+                case "MUL":
+                    result = (a * b).ToString();
+                    break;
+                default:
+                    result = "non definie";
+                    break;
+            }
+            return result;
+        }
+        //utilisation dans postman https://localhost:44361/api/calculatrice/params?a=12&b=28&o=AND        
     }
 }
