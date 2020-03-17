@@ -70,6 +70,12 @@ namespace Calculatrice.Controllers
             return utilisateurs.Where(utilisateur => utilisateur.Metier == metier).ToList();
         }
 
+        [Route("between/{min}/{max}")]
+        public List<Utilisateur> between(int min, int max)
+        {
+            return utilisateurs.Where(utilisateur => utilisateur.Age >= min && utilisateur.Age <= max).ToList();
+        }
+
         [HttpPut]
         [Route("{id}")]
         public Utilisateur update(int id, [FromBody] Utilisateur data)
@@ -85,7 +91,5 @@ namespace Calculatrice.Controllers
         {
             utilisateurs[id] = null;
         }
-
-
     }
 }
