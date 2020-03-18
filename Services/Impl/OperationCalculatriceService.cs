@@ -9,9 +9,11 @@ namespace Calculatrice.Services.Impl
     public class OperationCalculatriceService : OperationService
     {
         private static List<OperationDTO> operations = new List<OperationDTO>();
+        private static UtilisateurService utilisateurService = new UtilisateurCalculatriceService();
         public OperationDTO AjouterUneOperation(OperationDTO op)
         {
             op.Id = operations.Count();
+            op.Auteur = utilisateurService.TrouverUnUtilisateur(op.AuteurId);
             operations.Add(op);
             return op;
         }
