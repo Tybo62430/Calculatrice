@@ -14,14 +14,14 @@ namespace CalculatriceAPI.Controllers
     [ApiController]
     public class OperationController : ControllerBase
     {
-        private static List<Operation> operations = new List<Operation>();
+        private static List<OperationDTO> operations = new List<OperationDTO>();
 
         [HttpGet]
         [Route("")]
-        public List<Operation> findAll()
+        public List<OperationDTO> findAll()
         {
-            List<Operation> result = new List<Operation>();
-            foreach (Operation operation in operations)
+            List<OperationDTO> result = new List<OperationDTO>();
+            foreach (OperationDTO operation in operations)
             {
                 if (operation != null)
                 {
@@ -33,7 +33,7 @@ namespace CalculatriceAPI.Controllers
 
         [HttpPost]
         [Route("")]
-        public Operation save([FromBody] Operation data)
+        public OperationDTO save([FromBody] OperationDTO data)
         {
             data.Id = operations.Count;
             operations.Add(data);
@@ -42,7 +42,7 @@ namespace CalculatriceAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public Operation findById(int id)
+        public OperationDTO findById(int id)
         {
             return operations[id];
         }
@@ -56,7 +56,7 @@ namespace CalculatriceAPI.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public Operation update(int id, [FromBody] Operation data)
+        public OperationDTO update(int id, [FromBody] OperationDTO data)
         {
             data.Id = id;
             operations[id] = data;
@@ -65,17 +65,17 @@ namespace CalculatriceAPI.Controllers
 
         [HttpGet]
         [Route("nom/{nom}")]
-        public List<Operation> findByNom(string nom)
+        public List<OperationDTO> findByNom(string nom)
         {
             return operations.Where(operation => operation.Nom == nom).ToList();
         }
 
         [HttpGet]
         [Route("valeur/{valeur}")]
-        public List<Operation> findByValeur(string valeur)
+        public List<OperationDTO> findByValeur(string valeur)
         {
-            List<Operation> result = new List<Operation>();
-            foreach (Operation operation in operations)
+            List<OperationDTO> result = new List<OperationDTO>();
+            foreach (OperationDTO operation in operations)
             {
                 if (operation.Valeur == valeur)
                 {

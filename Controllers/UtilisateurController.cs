@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Calculatrice.DTO;
+using Calculatrice.Services;
+using Calculatrice.Services.Impl;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,84 +14,72 @@ namespace Calculatrice.Controllers
     [ApiController]
     public class UtilisateurController : ControllerBase
     {
-        private static List<Utilisateur> utilisateurs = new List<Utilisateur>();
+        private static UtilisateurService service = new UtilisateurCalculatriceService();
 
         [HttpPost]
         [Route("")]
-        public Utilisateur save([FromBody] Utilisateur data)
+        public UtilisateurDTO AjouterUnUtilisateur([FromBody] UtilisateurDTO value)
         {
-            data.Id = utilisateurs.Count;
-            utilisateurs.Add(data);
-            return data;
+            return service.AjouterUnUtilisateur(value);
         }
 
         [HttpGet]
         [Route("")]
-        public List<Utilisateur> findAll()
+        public IEnumerable<UtilisateurDTO> TrouverTout()
         {
-            List<Utilisateur> result = new List<Utilisateur>();
-            foreach (Utilisateur utilisateur in utilisateurs)
-            {
-                if (utilisateur != null)
-                {
-                    result.Add(utilisateur);
-                }
-            }
-            return result;
+            return service.TrouverTout();
         }
 
         [HttpGet]
         [Route("{id}")]
-        public Utilisateur findById(int id)
+        public UtilisateurDTO TrouverUnUtilisateur(int id)
         {
-            return utilisateurs[id];
+            return service.TrouverUnUtilisateur(id);
         }
 
         [HttpGet]
         [Route("nom/{nom}")]
-        public List<Utilisateur> findByNom(string nom)
+        public IEnumerable<UtilisateurDTO> TrouverParNom(string nom)
         {
-            return utilisateurs.Where(utilisateur => utilisateur.Nom == nom).ToList();
+            return service.TrouverParNom(nom);
         }
 
         [Route("prenom/{prenom}")]
-        public List<Utilisateur> findByPrenom(string prenom)
+        public IEnumerable<UtilisateurDTO> TrouverParPrenom(string prenom)
         {
-            return utilisateurs.Where(utilisateur => utilisateur.Prenom == prenom).ToList();
+            return service.TrouverParPrenom(prenom);
         }
 
         [Route("age/{age}")]
-        public List<Utilisateur> findByAge(int age)
+        public IEnumerable<UtilisateurDTO> TrouverParAge(int age)
         {
-            return utilisateurs.Where(utilisateur => utilisateur.Age == age).ToList();
+            return service.TrouverParAge(age);
         }
 
         [Route("metier/{metier}")]
-        public List<Utilisateur> findByMetier(string metier)
+        public IEnumerable<UtilisateurDTO> TrouverParMetier(string metier)
         {
-            return utilisateurs.Where(utilisateur => utilisateur.Metier == metier).ToList();
+            return service.TrouverParMetier(metier);
         }
 
         [Route("age")]
-        public List<Utilisateur> between(int min, int max = 1000)
+        public IEnumerable<UtilisateurDTO> TrouverParAge(int min, int max = 1000)
         {
-            return utilisateurs.Where(utilisateur => utilisateur.Age >= min && utilisateur.Age <= max).ToList();
+            return service.TrouverParAge(min, max);
         }
 
         [HttpPut]
         [Route("{id}")]
-        public Utilisateur update(int id, [FromBody] Utilisateur data)
+        public UtilisateurDTO Modifier(int id, [FromBody] UtilisateurDTO value)
         {
-            data.Id = id;
-            utilisateurs[id] = data;
-            return data;
+            return service.Modifier(id, value);
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public void delete(int id)
+        public void SupprimerUtilisateur(int id)
         {
-            utilisateurs[id] = null;
+            service.SupprimerUtilisateur(id);
         }
     }
 }

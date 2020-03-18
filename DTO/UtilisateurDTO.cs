@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Calculatrice.DTO
 {
-    public class Utilisateur
+    public class UtilisateurDTO
     {
         public int Id { get; set; }
         public string Nom { get; set; }
