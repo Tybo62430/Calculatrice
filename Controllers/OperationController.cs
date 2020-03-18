@@ -8,83 +8,64 @@ using Microsoft.AspNetCore.Mvc;
 namespace CalculatriceAPI.Controllers
 {
     using Calculatrice.DTO;
-    
+    using Calculatrice.Services;
+    using Calculatrice.Services.Impl;
 
     [Route("api/operations")]
     [ApiController]
     public class OperationController : ControllerBase
     {
-        private static List<OperationDTO> operations = new List<OperationDTO>();
+        private static OperationService service = new OperationCalculatriceService();
 
         [HttpGet]
         [Route("")]
-        public List<OperationDTO> findAll()
+        public IEnumerable<OperationDTO> TrouverTout()
         {
-            List<OperationDTO> result = new List<OperationDTO>();
-            foreach (OperationDTO operation in operations)
-            {
-                if (operation != null)
-                {
-                    result.Add(operation);
-                }
-            }
-            return result;
+            return service.TrouverTout();
         }
 
         [HttpPost]
         [Route("")]
-        public OperationDTO save([FromBody] OperationDTO data)
+        public OperationDTO AjouterUneOperation([FromBody] OperationDTO value)
         {
-            data.Id = operations.Count;
-            operations.Add(data);
-            return data;
+            return service.AjouterUneOperation(value);
         }
 
         [HttpGet]
         [Route("{id}")]
-        public OperationDTO findById(int id)
+        public IEnumerable<OperationDTO> TrouverUneOperation(int id)
         {
-            return operations[id];
+            return service.TrouverUneOperation(id);
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public void delete(int id)
+        public void SupprimerOperation(int id)
         {
-            operations[id] = null;
+            service.SupprimerOperation(id);
         }
 
         [HttpPut]
         [Route("{id}")]
-        public OperationDTO update(int id, [FromBody] OperationDTO data)
+        public OperationDTO Modifier(int id, [FromBody] OperationDTO value)
         {
-            data.Id = id;
-            operations[id] = data;
-            return data;
+            return service.Modifier(id, value);
         }
 
         [HttpGet]
         [Route("nom/{nom}")]
-        public List<OperationDTO> findByNom(string nom)
+        public IEnumerable<OperationDTO> TrouverParNom(string nom)
         {
-            return operations.Where(operation => operation.Nom == nom).ToList();
+            return service.TrouverParNom(nom);
         }
 
         [HttpGet]
         [Route("valeur/{valeur}")]
-        public List<OperationDTO> findByValeur(string valeur)
+        public IEnumerable<OperationDTO> TrouverParValeur(string valeur)
         {
-            List<OperationDTO> result = new List<OperationDTO>();
-            foreach (OperationDTO operation in operations)
-            {
-                if (operation.Valeur == valeur)
-                {
-                    result.Add(operation);
-                }
-            }
-            return result;
+            return service.TrouverParValeur(valeur);
         }
-    }
+    }    
 }
 
 
