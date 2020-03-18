@@ -9,11 +9,19 @@ namespace Calculatrice.Services.Impl
     public class OperationCalculatriceService : OperationService
     {
         private static List<OperationDTO> operations = new List<OperationDTO>();
-        private static UtilisateurService utilisateurService = new UtilisateurCalculatriceService();
+        
+        // 1 Attribut pour sstocker l'injection
+        private UtilisateurService utilisateurService;
+
+        // 2 je creer un constructeur et je demande en params le service
+        public OperationCalculatriceService(/*je demande ici>*/UtilisateurService service)
+        {
+            this.utilisateurService = service;
+        }
         public OperationDTO AjouterUneOperation(OperationDTO op)
         {
             op.Id = operations.Count();
-            op.Auteur = utilisateurService.TrouverUnUtilisateur(op.AuteurId);
+            op.Auteur = utilisateurService.TrouverUnUtilisateur(op.Auteur.Id);
             operations.Add(op);
             return op;
         }
@@ -21,7 +29,7 @@ namespace Calculatrice.Services.Impl
         public OperationDTO Modifier(int id, OperationDTO op)
         {
             op.Id = id;
-            op.Auteur = utilisateurService.TrouverUnUtilisateur(op.AuteurId);
+            op.Auteur = utilisateurService.TrouverUnUtilisateur(op.Auteur.Id);
             operations[id] = op;
             return op;
         }

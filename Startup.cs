@@ -31,6 +31,7 @@ namespace Calculatrice
                 typeof(OperationService), // Si tu as besoin d'un Object Service de type ...
                 typeof(OperationCalculatriceService) // Tu creer un singleton de type....
             );
+            // 3 je dis au framework que si je demande un UtilisateurService il doit me renvoyer une instance de UtilisateurCalculatriceService
             services.AddSingleton(typeof(UtilisateurService), typeof(UtilisateurCalculatriceService));
 
             services.AddControllers();
