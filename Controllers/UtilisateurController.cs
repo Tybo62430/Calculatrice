@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Calculatrice.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/utilisateur")]
     [ApiController]
     public class UtilisateurController : ControllerBase
     {

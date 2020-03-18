@@ -21,6 +21,7 @@ namespace Calculatrice.Services.Impl
         public OperationDTO Modifier(int id, OperationDTO op)
         {
             op.Id = id;
+            op.Auteur = utilisateurService.TrouverUnUtilisateur(op.AuteurId);
             operations[id] = op;
             return op;
         }
