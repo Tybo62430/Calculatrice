@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Calculatrice.Services;
+using Calculatrice.Services.Impl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +27,12 @@ namespace Calculatrice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(
+                typeof(OperationService), // Si tu as besoin d'un Object Service de type ...
+                typeof(OperationCalculatriceService) // Tu creer un singleton de type....
+            );
+            services.AddSingleton(typeof(UtilisateurService), typeof(UtilisateurCalculatriceService));
+
             services.AddControllers();
         }
 

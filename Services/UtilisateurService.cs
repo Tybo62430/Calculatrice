@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculatrice.Services
 {
-    interface UtilisateurService
+    public interface UtilisateurService
     {
         public IEnumerable<UtilisateurDTO> TrouverTout();
         public UtilisateurDTO TrouverUnUtilisateur(int id);

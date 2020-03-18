@@ -15,55 +15,61 @@ namespace CalculatriceAPI.Controllers
     [ApiController]
     public class OperationController : ControllerBase
     {
-        private static OperationService service = new OperationCalculatriceService();
+        //private static OperationService service = new OperationCalculatriceService();
+        private OperationService service;
+
+        public OperationController(OperationService service)
+        {
+            this.service = service;
+        }
 
         [HttpGet]
         [Route("")]
         public IEnumerable<OperationDTO> TrouverTout()
         {
-            return service.TrouverTout();
+            return this.service.TrouverTout();
         }
 
         [HttpPost]
         [Route("")]
         public OperationDTO AjouterUneOperation([FromBody] OperationDTO value)
         {
-            return service.AjouterUneOperation(value);
+            return this.service.AjouterUneOperation(value);
         }
 
         [HttpGet]
         [Route("{id}")]
         public IEnumerable<OperationDTO> TrouverUneOperation(int id)
         {
-            return service.TrouverUneOperation(id);
+            return this.service.TrouverUneOperation(id);
         }
 
         [HttpDelete]
         [Route("{id}")]
         public void SupprimerOperation(int id)
         {
-            service.SupprimerOperation(id);
+            this.service.SupprimerOperation(id);
         }
 
         [HttpPut]
         [Route("{id}")]
         public OperationDTO Modifier(int id, [FromBody] OperationDTO value)
         {
-            return service.Modifier(id, value);
+            return this.service.Modifier(id, value);
         }
 
         [HttpGet]
         [Route("nom/{nom}")]
         public IEnumerable<OperationDTO> TrouverParNom(string nom)
         {
-            return service.TrouverParNom(nom);
+            return this.service.TrouverParNom(nom);
         }
 
         [HttpGet]
         [Route("valeur/{valeur}")]
         public IEnumerable<OperationDTO> TrouverParValeur(string valeur)
         {
-            return service.TrouverParValeur(valeur);
+            return this.service.TrouverParValeur(valeur);
         }
     }    
 }

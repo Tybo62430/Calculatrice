@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculatrice.Services
 {
-    interface OperationService
+    public interface OperationService
     {
         public IEnumerable<OperationDTO> TrouverTout();       
         public OperationDTO AjouterUneOperation(OperationDTO operation);
